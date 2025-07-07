@@ -1,24 +1,30 @@
-# vadr_annotator
-Nextflow pipeline for running batch VADR annotation.
+# vadr-vscan-local
+Nextflow pipeline for running [VADR](https://github.com/ncbi/vadr) v-scan for annotating HCoV, HMPV, HPIV, MeV, MuV or RuV sequences using Greninger-lab hosted VADR model libraries. 
 
-#### sample_fastas.csv format:
+# Dependencies
+Nextflow - [installation instructions](https://www.nextflow.io/docs/latest/install.html)
+
+Docker - [installation instructions](https://docs.docker.com/get-started/get-docker/)
+
+# Command line
+    nextflow run greninger-lab/vadr-vscan-local --input sample_fastas.csv --outdir ./out -profile docker
+
+#### vadr-vscan-local will automatically detect which model library to use for annotation.  Input sequences must be from one of the following currently supported species:
+HCoV, HMPV, HPIV, MeV, MuV or RuV.
+
+#### Input sample_fastas.csv format:
 ---------
     sample,fasta
     SAMPLE1,/PATH/TO/SAMPLE1.fasta
     SAMPLE2,/PATH/TO/SAMPLE2.fasta
 ---------
 
-### Command line:
-   nextflow run ../vadr_annotator 
-      --input  sample_fastas.csv 
-      --outdir ./out_final_1/ 
-      --mdir /Users/jfurlong/dev/HSV-2-vadr/hsv_vadr_annotation/vadr_hsv/NC_001798 
-      --mkey NC_001798.vadr 
-      --sbt /Users/jfurlong/dev/HSV-2-vadr/test.sbt 
-      -profile docker 
-      -c nextflow_aws.config 
-      -with-tower
-      -r main 
+# Example 
+Download [example.tgz](./assets/example.tgz)
+    tar xvzf example.tgz
+    nextflow run greninger-lab/vadr-vscan-local --input example.csv --outdir ./out -profile docker
+
+
 
 
 
