@@ -22,7 +22,7 @@ HCoV, HMPV, HPIV, MeV, MuV or RuV.
 ### Additional command line options for generating GenBank submission files:
 | option | description | 
 |--------|-------------| 
-| `--sbt <file>`        | path to a [GenBank Submission Template file](https://submit.ncbi.nlm.nih.gov/genbank/template/submission/) (.sbt) | 
+| `--sbt <file>`        | path to a [GenBank Submission Template (.sbt) file](https://submit.ncbi.nlm.nih.gov/genbank/template/submission/) | 
 | `--src <file>`        | path to a [Source Modifiers Table (.src) file](https://www.ncbi.nlm.nih.gov/WebSub/html/help/genbank-source-table.html) | 
 
 
