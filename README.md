@@ -1,5 +1,5 @@
 # vadr-vscan-local
-Nextflow pipeline for running [VADR](https://github.com/ncbi/vadr) v-scan to annotate HCoV, HMPV, HPIV, MeV, MuV or RuV sequences using Greninger-lab developed VADR model libraries.  If a [Submission Template (.sbt) file](https://submit.ncbi.nlm.nih.gov/genbank/template/submission/) and a [Source Modifiers Table (.src) file](https://www.ncbi.nlm.nih.gov/WebSub/html/help/genbank-source-table.html) are included, ASN.1 Format (.sqn) files will be provided for GenBank submission.
+Nextflow pipeline for running [VADR](https://github.com/ncbi/vadr) v-scan to annotate HCoV, HMPV, HPIV, MeV, MuV or RuV viral sequences using Greninger-lab developed VADR model libraries.  If a [Submission Template (.sbt) file](https://submit.ncbi.nlm.nih.gov/genbank/template/submission/) and a [Source Modifiers Table (.src) file](https://www.ncbi.nlm.nih.gov/WebSub/html/help/genbank-source-table.html) are included, ASN.1 Format (.sqn) files will be generated for GenBank submission of your sequences.
 
 # Dependencies
 Nextflow - [installation instructions](https://www.nextflow.io/docs/latest/install.html)
@@ -32,6 +32,27 @@ Download [example.zip](https://github.com/greninger-lab/vadr-vscan-local/raw/ref
     unzip example.zip
     cd example
     nextflow run greninger-lab/vadr-vscan-local --input example.csv --outdir ./out -profile docker
+
+## Example output
+```
+out
+├── pipeline_info
+├── summary
+|   ├── batch_classify_pass_fail.tsv
+|   └── batch_error_alert.tsv
+└── vadr
+    ├── AB470486.fsa
+    ├── AB470486.gbf
+    ├── AB470486.sqn
+    ├── AB470486_out
+    │   ├── AB470486_out.muv.vadr.alc
+    │   ├── AB470486_out.muv.vadr.alt
+    │   ├── AB470486_out.muv.vadr.alt.list
+    │   ├── <additional VADR output files>
+    ├── AB470486_out.vadr.tbl
+
+```
+
 
 
 
