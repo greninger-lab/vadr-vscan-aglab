@@ -21,6 +21,7 @@ HCoV, HMPV, HPIV, MeV, MuV or RuV.
 
 # Example 
 Download [example.zip](https://github.com/greninger-lab/vadr-vscan-local/raw/refs/heads/main/assets/example.zip)
+    
     unzip example.zip
     cd example
     nextflow run greninger-lab/vadr-vscan-local --input example.csv --outdir ./out -profile docker
