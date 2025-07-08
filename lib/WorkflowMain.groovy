@@ -1,5 +1,5 @@
 //
-// This file holds several functions specific to the main.nf workflow in the nf-core/annotate pipeline
+// This file holds several functions specific to the main.nf workflow in the pipeline
 //
 
 import nextflow.Nextflow
@@ -14,6 +14,18 @@ class WorkflowMain {
         if (params.version) {
             String workflow_version = NfcoreTemplate.version(workflow)
             log.info "${workflow.manifest.name} ${workflow_version}"
+            System.exit(0)
+        }
+
+        if (params.help) {
+            log.info "The following command line options are available:\n" +
+                    "   `--input  /path/to/your/sample_fasta.csv`  (required)\n" +
+                    "   `--outdir /path/to/output`                 (required)\n" +
+                    "   `--vadr_keep`                              (optional) keeps all VADR output\n" +
+                    "   `--sbt`                                    (optional) GenBank submission template file\n" +
+                    "   `--src`                                    (optional) GenBank source modifier table file\n" +
+                    "   `-profile docker`                          (required)\n" +
+                    "   `-c /path/to/your/custom.config`           (optional) used for configuring computational environments (e.g., AWS)\n"
             System.exit(0)
         }
 

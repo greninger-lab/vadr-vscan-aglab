@@ -1,13 +1,28 @@
 process VADR {
     tag "$meta.id"
     label 'process_medium'
-
     container "quay.io/jefffurlong/vadr"
+
+    // Start with these extensions to save after annotation
+    def extensions = [".tbl", ".gbf", ".fsa"]
+
+    // Conditionally add .sqn if sbt file is provided
+    if (params.sbt != null) {
+        extensions << ".sqn"
+    }
+
+    // Add all VADR output if requested
+    if (params.vadr_keep) {
+        extensions << "_out"
+    }
+
+    // Join into a comma-separated string
+    pattern = "*{${extensions.join(',')}}"
+
+    publishDir "${params.outdir}/vadr", pattern: pattern, mode: 'copy'
 
     input:
         tuple val(meta), path(fasta)
-        //path(mdir)
-        //val(mkey)
         path(sbt)
         path(src)
 
@@ -21,35 +36,7 @@ process VADR {
 
     shell:
     def prefix = task.ext.prefix ?: "${meta.id}"
-    def args = ""
     def src_file = src ? "-src-file ${src}" : ""
-    /*
-    switch("${mkey}") {
-        case "hmpv":
-        case "hpiv1":
-        case "hpiv2":
-        case "hpiv3":
-        case "hpiv4":
-        case "mev":
-        case "muv":
-        case "ruv":
-            args = "${task.ext.args1}"
-            break
-        case "229E":
-        case "NL63":
-            args = "${task.ext.args2}"
-            break
-        case "HKU1":
-        case "OC43":
-            args = "${task.ext.args4}"
-            break             
-        case "hsv":
-            args = "${task.ext.args_hsv}"
-            break
-    }
-    #v-annotate.pl --mdir ${mdir} --mkey ${mkey} ${args} ${meta.id}.fasta ${meta.id}_out
-    #cat ${meta.id}_out/${meta.id}_out.vadr.pass.tbl ${meta.id}_out/${meta.id}_out.vadr.fail.tbl > ./temp.${meta.id}_out.vadr.tbl
-    */
 
     """
     # Check for U in sequence.  If it is mRNA then replace with T and add [moltype=mRNA] to description
@@ -59,7 +46,7 @@ process VADR {
     echo \$0 >> test.txt
 
     # Trim the sequence 
-    /opt/vadr/vadr/miniscripts/fasta-trim-terminal-ambigs.pl --minlen 50 --maxlen 1800000 ${meta.id}_untrimmed.fasta > ${meta.id}_temp.fasta
+    /opt/vadr/vadr/miniscripts/fasta-trim-terminal-ambigs.pl --minlen 30 --maxlen 2000000 ${meta.id}_untrimmed.fasta > ${meta.id}_temp.fasta
     
     # Use v-scan.pl to find the best model
     v-scan.pl -c /opt/vadr/combined.conf -m ${meta.id}_temp.fasta ${meta.id}_out

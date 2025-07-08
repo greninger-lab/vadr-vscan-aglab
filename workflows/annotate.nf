@@ -33,9 +33,15 @@ workflow ANNOTATE {
         ch_src = []
     }
 
+    if (params.sbt) {
+        ch_sbt = file(params.sbt)
+    } else {
+        ch_sbt = file("$projectDir/assets/test.sbt")
+    }
+
     VADR (
         INPUT_CHECK.out.fasta,
-        file(params.sbt),
+        ch_sbt,
         ch_src       
     )
 

@@ -16,6 +16,8 @@ COPY combined.conf /opt/vadr/combined.conf
 COPY greninger-lab-install.sh /opt/vadr/greninger-lab-install.sh
 RUN sh greninger-lab-install.sh
 
+RUN cpan -T Mozilla::CA
+
 ENV VADRINSTALLDIR=/opt/vadr
 ENV VADRSCRIPTSDIR=/opt/vadr/vadr
 ENV VADRCONFIGFILE=/opt/vadr/vadr.config
