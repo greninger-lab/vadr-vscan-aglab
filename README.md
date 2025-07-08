@@ -7,7 +7,7 @@ Nextflow - [installation instructions](https://www.nextflow.io/docs/latest/insta
 Docker - [installation instructions](https://docs.docker.com/get-started/get-docker/)
 
 # Command line
-    nextflow run greninger-lab/vadr-vscan-local --input sample_fastas.csv --outdir ./out -profile docker
+    nextflow run greninger-lab/vadr-vscan-local -r main -latest --input sample_fastas.csv --outdir ./out -profile docker
 
 #### vadr-vscan-local will automatically detect which model library to use for annotation.  Input sequences must be from one of the following currently supported species:
 HCoV, HMPV, HPIV, MeV, MuV or RuV.
@@ -31,7 +31,7 @@ Download [example.zip](https://github.com/greninger-lab/vadr-vscan-local/raw/ref
     
     unzip example.zip
     cd example
-    nextflow run greninger-lab/vadr-vscan-local --input example.csv --outdir ./out -profile docker
+    nextflow run greninger-lab/vadr-vscan-local -r main -latest --input example.csv --outdir ./out -profile docker
 
 ## Example output
 ```
