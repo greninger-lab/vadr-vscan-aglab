@@ -12,18 +12,24 @@ Docker - [installation instructions](https://docs.docker.com/get-started/get-doc
 #### vadr-vscan-local will automatically detect which model library to use for annotation.  Input sequences must be from one of the following currently supported species:
 HCoV, HMPV, HPIV, MeV, MuV or RuV.
 
-#### Input sample_fastas.csv format:
+#### Input csv sample,fasta format:
 ---------
     sample,fasta
     SAMPLE1,/PATH/TO/SAMPLE1.fasta
     SAMPLE2,/PATH/TO/SAMPLE2.fasta
 ---------
 
-### Additional command line options for generating GenBank submission files:
+### Command line options:
 | option | description | 
-|--------|-------------| 
-| `--sbt <file>`        | path to a [GenBank Submission Template (.sbt) file](https://submit.ncbi.nlm.nih.gov/genbank/template/submission/) | 
-| `--src <file>`        | path to a [Source Modifiers Table (.src) file](https://www.ncbi.nlm.nih.gov/WebSub/html/help/genbank-source-table.html) | 
+|--------|-------------|
+| `--input  /path/to/your/sample_fastas.csv` | (required) path to a csv sample,fasta input file |
+| `--outdir /path/to/output`                | (required) output directory |
+| `--vadr_keep`                             | (optional) keeps all VADR output in the output/vadr directory (SAMPLE_out) |
+| `--sbt <file>`        | (optional) path to a [GenBank Submission Template (.sbt) file](https://submit.ncbi.nlm.nih.gov/genbank/template/submission/) | 
+| `--src <file>`        | (optional) path to a [Source Modifiers Table (.src) file](https://www.ncbi.nlm.nih.gov/WebSub/html/help/genbank-source-table.html) |
+| `-profile docker`                         | (required) |
+| `-c /path/to/your/custom.config`          | (optional) used for configuring computational environments (e.g., AWS) |
+
 
 
 # Example 
