@@ -1,4 +1,4 @@
-# vadr-vscan-local
+# vadr-vscan-aglab
 Nextflow pipeline for running [VADR](https://github.com/ncbi/vadr) v-scan to annotate HCoV, HMPV, HPIV, MeV, MuV or RuV viral sequences using Greninger-lab developed VADR model libraries.  If a [Submission Template (.sbt) file](https://submit.ncbi.nlm.nih.gov/genbank/template/submission/) and a [Source Modifiers Table (.src) file](https://www.ncbi.nlm.nih.gov/WebSub/html/help/genbank-source-table.html) are included, ASN.1 Format (.sqn) files will be generated for GenBank submission of your sequences.
 
 # Dependencies
@@ -7,9 +7,9 @@ Nextflow - [installation instructions](https://www.nextflow.io/docs/latest/insta
 Docker - [installation instructions](https://docs.docker.com/get-started/get-docker/)
 
 # Command line
-    nextflow run greninger-lab/vadr-vscan-local -r main -latest --input sample_fastas.csv --outdir ./out -profile docker
+    nextflow run greninger-lab/vadr-vscan-aglab -r main -latest --input sample_fastas.csv --outdir ./out -profile docker
 
-#### vadr-vscan-local will automatically detect which model library to use for annotation.  Input sequences must be from one of the following currently supported species:
+#### vadr-vscan-aglab will automatically detect which model library to use for annotation.  Input sequences must be from one of the following currently supported species:
 HCoV, HMPV, HPIV, MeV, MuV or RuV.
 
 #### Input csv sample,fasta format:
@@ -33,11 +33,11 @@ HCoV, HMPV, HPIV, MeV, MuV or RuV.
 
 
 # Example 
-Download [example.zip](https://github.com/greninger-lab/vadr-vscan-local/raw/refs/heads/main/assets/example.zip)
+Download [example.zip](https://github.com/greninger-lab/vadr-vscan-aglab/raw/refs/heads/main/assets/example.zip)
     
     unzip example.zip
     cd example
-    nextflow run greninger-lab/vadr-vscan-local -r main -latest --input example.csv --outdir ./out -profile docker
+    nextflow run greninger-lab/vadr-vscan-aglab -r main -latest --input example.csv --outdir ./out -profile docker
 
 ## Example output
 ```
