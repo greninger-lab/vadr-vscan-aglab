@@ -26,7 +26,7 @@ def process_fasta_strict(input_path, output_path, allow_dna=False):
             try:
                 converted_seq = strict_back_transcribe(record.seq, allow_dna=allow_dna)
                 if 'U' in str(record.seq).upper():
-                    record.description += " [moltype=mRNA]"
+                    record.description += " [moltype=cRNA]"
                 record.seq = converted_seq
                 SeqIO.write(record, out_f, "fasta")
             except ValueError as e:
