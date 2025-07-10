@@ -31,9 +31,9 @@ HCoV, HMPV, HPIV, MeV, MuV or RuV.
 | `-c /path/to/your/custom.config`          | (optional) used for configuring computational environments (e.g., AWS) |
 
 ## Utility tools for creating a sample,fasta csv file (if needed)
-Download [split_multi_fasta.py](https://github.com/greninger-lab/vadr-vscan-aglab/raw/refs/heads/main/docker_imgs/vadr/split_multi_fasta.py) to split a multi_fasta file into an output folder:
+#### Download [utils.zip](https://github.com/greninger-lab/vadr-vscan-aglab/raw/refs/heads/main/assets/utils.zip) and unzip to split a multi_fasta file into an output folder:
 `python3 split_multi_fasta.py <multi_fasta_file> <output_directory>`
-Download [generate_sample_fasta_csv.py](https://github.com/greninger-lab/vadr-vscan-aglab/raw/refs/heads/main/docker_imgs/vadr/generate_sample_fasta_csv.py) to create a sample,fasta csv file:
+#### or create a sample,fasta csv file:
 `python3 generate_sample_fasta_csv.py <input_fasta_directory> <csv_filename>`
 
 
