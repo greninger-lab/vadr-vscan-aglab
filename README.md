@@ -12,14 +12,14 @@ Nextflow - [installation instructions](https://www.nextflow.io/docs/latest/insta
 
 Docker - [installation instructions](https://docs.docker.com/get-started/get-docker/)
 
-# How "vadr-vscan-aglab" works
+# How vadr-vscan-aglab pipeline works
 For a nucleotide sequence in FASTA file the tool compares to curated reference models to automatically annotate genomic features (.vadr.tbl) and report potential sequence anomalies (error_alert.tsv).
 If a [Submission Template (.sbt) file](https://submit.ncbi.nlm.nih.gov/genbank/template/submission/) and a [Source Modifiers Table (.src) file](https://www.ncbi.nlm.nih.gov/WebSub/html/help/genbank-source-table.html) are included, ASN.1 Format (.sqn) files will be generated for [NCBI GenBank submission] (https://www.ncbi.nlm.nih.gov/genbank/submit/) of your sequences by email to gb-sub@ncbi.nlm.nih.gov 
 
 ## Utility tools for creating a samplesheet of the fasta files (if needed)
 Since this container uses Nextflow, it requires a samplesheet in CSV format. The samplesheet must indicate the FASTA header and the file path for each query sequence.
 
-Note: the current container version requires each query sequence to be stored in a separate FASTA file. Multi-fasta files are not supported.
+Note: the current container version requires each query sequence to be stored in a separate FASTA file. Multi-FASTA files are not supported.
 
 You are welcome to split multifasta and create the samplesheet manually, but we also provide scripts to generate it automatically for your convenience.
 
