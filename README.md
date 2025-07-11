@@ -1,5 +1,5 @@
 # vadr-vscan-aglab
-Nextflow pipeline for running [VADR](https://github.com/ncbi/vadr) v-scan to annotate nucleotide sequences of the viral species using Greninger Lab developed VADR model libraries:
+A Nextflow pipeline for running [VADR](https://github.com/ncbi/vadr) v-scan to annotate nucleotide sequences using Greninger Lab developed VADR model libraries for the following viral species:
 * Measles virus
 * Human metapneumovirus
 * Human parainfluenza virus (HPIV-1, HPIV-2, HPIV-3, HPIV-4)
@@ -7,19 +7,19 @@ Nextflow pipeline for running [VADR](https://github.com/ncbi/vadr) v-scan to ann
 * Rubella virus
 * Seasonal human coronavirus (229E, NL63, HKU1, OC43)
 
-# Dependencies required before installing "vadr-vscan-aglab"
+# Dependencies required before using "vadr-vscan-aglab"
 Nextflow - [installation instructions](https://www.nextflow.io/docs/latest/install.html)
 
 Docker - [installation instructions](https://docs.docker.com/get-started/get-docker/)
 
 # How vadr-vscan-aglab pipeline works
-For a nucleotide sequence in FASTA file the tool compares to curated reference models to automatically annotate genomic features (.vadr.tbl) and report potential sequence anomalies (error_alert.tsv).
-If a [Submission Template (.sbt) file](https://submit.ncbi.nlm.nih.gov/genbank/template/submission/) and a [Source Modifiers Table (.src) file](https://www.ncbi.nlm.nih.gov/WebSub/html/help/genbank-source-table.html) are included, ASN.1 Format (.sqn) files will be generated for [NCBI GenBank submission] (https://www.ncbi.nlm.nih.gov/genbank/submit/) of your sequences by email to gb-sub@ncbi.nlm.nih.gov 
+The tool compares a FASTA formatted nucleotide sequence to curated reference models to automatically annotate genomic features (.vadr.tbl) and report potential sequence anomalies (error_alert.tsv).
+If a [Submission Template (.sbt) file](https://submit.ncbi.nlm.nih.gov/genbank/template/submission/) and a [Source Modifiers Table (.src) file](https://www.ncbi.nlm.nih.gov/WebSub/html/help/genbank-source-table.html) are included, ASN.1 Format (.sqn) files will be generated for [NCBI GenBank submission](https://www.ncbi.nlm.nih.gov/genbank/submit/) of your sequences by email to gb-sub@ncbi.nlm.nih.gov 
 
 ## Utility tools for creating a samplesheet of the fasta files (if needed)
-Since this container uses Nextflow, it requires a samplesheet in CSV format. The samplesheet must indicate the FASTA header and the file path for each query sequence.
+This pipeline is a containerized application and designed to elastically scale to utilize the available resources of the computing environment it is run in (desktop, cloud, or cluster). As such, it requires a samplesheet in CSV format to facilitate parallel annotation of the maximum number of sequences simultaneously within the constraints of available compute resources. The samplesheet must indicate the FASTA header and the file path for each query sequence.
 
-Note: the current container version requires each query sequence to be stored in a separate FASTA file. Multi-FASTA files are not supported.
+Note: the current version of the pipeline requires each query sequence to be stored in a separate FASTA file. Multi-FASTA files are not supported.
 
 You are welcome to split multifasta and create the samplesheet manually, but we also provide scripts to generate it automatically for your convenience.
 
@@ -42,12 +42,12 @@ Copy and paste the following command into your terminal, replacing <input_fasta_
     SAMPLE2,/PATH/TO/SAMPLE2.fasta
 ---------
 
-# Install and run vadr-vscan-aglab
-The input sequences must be nucleotide sequences from one of the currently supportes virus species listed above. In the default version vadr-vscan-aglab will generate a 5-column annotation table and an annotated sequence in .gb format. Copy and paste the following command into your terminal, replacing <samplesheet_output.csv> with actual name of your samplesheet:
+# Running vadr-vscan-aglab
+The input sequences must be nucleotide sequences from one of the currently supported virus species listed above. In the default version vadr-vscan-aglab will generate a 5-column annotation table and an annotated sequence in .gb format (with "test" metadata). Copy and paste the following command into your terminal, replacing <samplesheet_output.csv> with actual name of your samplesheet:
 
     nextflow run greninger-lab/vadr-vscan-aglab -r main -latest --input <samplesheet_output.csv> --outdir ./out -profile docker
 
-However, if you also want to create the genbank submission .sqn files, you should indicate a [Submission Template (.sbt) file](https://submit.ncbi.nlm.nih.gov/genbank/template/submission/) and a [Source Modifiers Table (.src) file](https://www.ncbi.nlm.nih.gov/WebSub/html/help/genbank-source-table.html). Copy and paste the following command into your terminal, replacing <samplesheet_output.csv>, <submission_template.sbt> and <source_modifiers.src> with your actual filenames:
+However, if you also want to create the genbank submission .sqn files (and .gb files with complete metadata), you should indicate a [Submission Template (.sbt) file](https://submit.ncbi.nlm.nih.gov/genbank/template/submission/) and a [Source Modifiers Table (.src) file](https://www.ncbi.nlm.nih.gov/WebSub/html/help/genbank-source-table.html). Copy and paste the following command into your terminal, replacing <samplesheet_output.csv>, <submission_template.sbt> and <source_modifiers.src> with your actual filenames:
 
     nextflow run greninger-lab/vadr-vscan-aglab -r main -latest --input <samplesheet_output.csv> --sbt <submission_template.sbt> --src <source_modifiers.src> --outdir ./out -profile docker
 
@@ -60,8 +60,7 @@ However, if you also want to create the genbank submission .sqn files, you shoul
 | `--sbt <file>`        | (optional) path to a [GenBank Submission Template (.sbt) file](https://submit.ncbi.nlm.nih.gov/genbank/template/submission/) | 
 | `--src <file>`        | (optional) path to a [Source Modifiers Table (.src) file](https://www.ncbi.nlm.nih.gov/WebSub/html/help/genbank-source-table.html) |
 | `-profile docker`                         | (required) |
-| `-c /path/to/your/custom.config`          | (optional) used for configuring computational environments (e.g., AWS) |
-
+| `-c /path/to/your/custom.config`          | (optional) used specify a custom configuration file (see [Nextflow docs](https://www.nextflow.io/docs/latest/config.html) |
 
 ### You can test with the example input FASTA
 Download [example.zip](https://github.com/greninger-lab/vadr-vscan-aglab/raw/refs/heads/main/assets/example.zip)
@@ -70,28 +69,40 @@ Download [example.zip](https://github.com/greninger-lab/vadr-vscan-aglab/raw/ref
     cd example
     nextflow run greninger-lab/vadr-vscan-aglab -r main -latest --input example.csv --outdir ./out -profile docker
 
-#### The scheme of output directory will be
+#### The default (no "optional" command line options) output directory:
 ```
 out
 ├── pipeline_info
 ├── summary
-|   ├── batch_classify_pass_fail.tsv
-|   └── batch_error_alert.tsv
+|   ├── batch_classify_pass_fail.tsv  ← ⚠️ Check this file for VADR pass/fail reports on each sequence
+|   └── batch_error_alert.tsv         ← ⚠️ Check here for error alerts for any VADR failed sequences
 └── vadr
     ├── AB470486.fsa
     ├── AB470486.gbf
-    ├── AB470486.sqn
-    ├── AB470486_out
+    ├── AB470486_out.vadr.tbl
+```
+
+#### Using options "--vadr_keep", "--sbt" and "--src"
+```
+out
+├── pipeline_info
+├── summary
+|   ├── batch_classify_pass_fail.tsv  ← ⚠️ Check this file for VADR pass/fail reports on each sequence
+|   └── batch_error_alert.tsv         ← ⚠️ Check here for error alerts for any VADR failed sequences
+└── vadr
+    ├── AB470486.fsa
+    ├── AB470486.gbf
+    ├── AB470486.sqn  ← Created when --sbt <file> and --src <file> are provided
+    ├── AB470486_out  ← Created when --vadr_keep is provided
     │   ├── AB470486_out.muv.vadr.alc
-    │   ├── AB470486_out.muv.vadr.alt
-    │   ├── AB470486_out.muv.vadr.alt.list
+    │   ├── AB470486_out.muv.vadr.alt      ← VADR alert file (see below)
+    │   ├── AB470486_out.muv.vadr.alt.list ← VADR alert file (used for generating batch_error_alert.tsv)
     │   ├── <additional VADR output files>
     ├── AB470486_out.vadr.tbl
 
 ```
-
-
-
+## Notes about VADR (v-annotate.pl) error alerts
+VADR v-annotate.pl detects and reports alerts for more than 70 types of unexpected sequence characteristics. Documentation for v-annotate.pl can be found [here](https://github.com/ncbi/vadr/blob/master/documentation/annotate.md), and extensive documentation for v-annotate.pl alerts is available [here](https://github.com/ncbi/vadr/blob/master/documentation/alerts.md).
 
 
 
