@@ -17,7 +17,7 @@ The tool compares a FASTA formatted nucleotide sequence to curated reference mod
 If a [Submission Template (.sbt) file](https://submit.ncbi.nlm.nih.gov/genbank/template/submission/) and a [Source Modifiers Table (.src) file](https://www.ncbi.nlm.nih.gov/WebSub/html/help/genbank-source-table.html) are included, ASN.1 Format (.sqn) files will be generated for [NCBI GenBank submission](https://www.ncbi.nlm.nih.gov/genbank/submit/) of your sequences by email to gb-sub@ncbi.nlm.nih.gov 
 
 ## Utility tools for creating a samplesheet of the fasta files (if needed)
-This pipeline is a containerized application that can automatically scale to make the most computing resources available (desktop, cloud, or cluster). To run efficiently, it needs a samplesheet in CSV format. This file helps the pipeline process multiple sequences in parallel, depending on the available resources. The samplesheet must indicate the FASTA header and the file path for each query sequence.
+This pipeline is a containerized application that can automatically scale to utilize the most computing resources available (desktop, cloud, or cluster). To run efficiently, it needs a samplesheet in CSV format. This file helps the pipeline process multiple sequences in parallel, depending on the available resources. The samplesheet must indicate the FASTA header and the file path for each query sequence.
 
 Note: the current version of the pipeline requires each query sequence to be stored in a separate FASTA file. Multi-FASTA files are not supported.
 
