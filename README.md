@@ -7,7 +7,7 @@ Nextflow pipeline for running [VADR](https://github.com/ncbi/vadr) v-scan to ann
 * Rubella virus
 * Seasonal human coronavirus (229E, NL63, HKU1, OC43)
 
-# Dependencies needed before "vadr-vscan-aglab" installation
+# Dependencies required before isntalling "vadr-vscan-aglab"
 Nextflow - [installation instructions](https://www.nextflow.io/docs/latest/install.html)
 
 Docker - [installation instructions](https://docs.docker.com/get-started/get-docker/)
