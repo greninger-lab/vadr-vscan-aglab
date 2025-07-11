@@ -43,10 +43,13 @@ Copy and paste the following command into your terminal, replacing <input_fasta_
 ---------
 
 # Install and run vadr-vscan-aglab
-The input sequences must be nucleotide sequences from one of the currently supportes virus species listed above. 
-Copy and paste the following command into your terminal, replacing <samplesheet_output.csv> with actual name of your samplesheet:
+The input sequences must be nucleotide sequences from one of the currently supportes virus species listed above. In the default version vadr-vscan-aglab will generate a 5-column annotation table and an annotated sequence in .gb format. Copy and paste the following command into your terminal, replacing <samplesheet_output.csv> with actual name of your samplesheet:
 
     nextflow run greninger-lab/vadr-vscan-aglab -r main -latest --input <samplesheet_output.csv> --outdir ./out -profile docker
+
+However, if you also want to create the genbank submission .sqn files, you should indicate a [Submission Template (.sbt) file](https://submit.ncbi.nlm.nih.gov/genbank/template/submission/) and a [Source Modifiers Table (.src) file](https://www.ncbi.nlm.nih.gov/WebSub/html/help/genbank-source-table.html). Copy and paste the following command into your terminal, replacing <samplesheet_output.csv>, <submission_template.sbt> and <source_modifiers.src> with your actual filenames:
+
+    nextflow run greninger-lab/vadr-vscan-aglab -r main -latest --input <samplesheet_output.csv> --sbt <submission_template.sbt> --src <source_modifiers.src> --outdir ./out -profile docker
 
 ## Command line options
 | option | description | 
