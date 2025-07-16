@@ -13,7 +13,6 @@ process SUMMARY {
 
     script:
     """
-    #awk 'FNR==1 && NR!=1{next;}{print}' \$(find . -name '*vadr.alt.list' 2> /dev/null) > batch_error_alert.tsv
     find  -L . -type f -name '*vadr.alt.list' -exec awk 'FNR==1 && NR!=1{next}{print}' {} + > batch_error_alert.tsv
     echo 'sample\tidx\tmodel\tgroup\tsubgroup\tnum_seqs\tnum_pass\tnum_fail' > batch_classify_pass_fail.tsv
     find -L . -type f -name "*.mdl" | xargs -I {} sh -c 'file={}; printf "%s\t" "\$(echo "\$file" | cut -d/ -f3- | sed "s/_out\\.vadr\\.mdl\$//")"; sed -n "4p" "\$file" | tr -s " " "\t"' >> batch_classify_pass_fail.tsv

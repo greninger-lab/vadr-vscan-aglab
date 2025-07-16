@@ -1,6 +1,8 @@
 process VADR {
     tag "$meta.id"
-    label 'process_medium'
+    cpus   params.vadr_cpus
+    memory params.vadr_mem
+
     container "quay.io/jefffurlong/vadr"
 
     // Start with these extensions to save after annotation
