@@ -12,13 +12,16 @@ RUN mv linux64.table2asn /usr/bin/table2asn
 RUN chmod 755 /usr/bin/table2asn
 RUN mkdir /opt/sequtils
 COPY fasta_rna_to_dna_strict.py /opt/sequtils/fasta_rna_to_dna_strict.py
-COPY combined.conf /opt/vadr/combined.conf
 COPY greninger-lab-install.sh /opt/vadr/greninger-lab-install.sh
 RUN sh greninger-lab-install.sh
 COPY split_multi_fasta.py /opt/sequtils/split_multi_fasta.py
 COPY generate_sample_fasta_csv.py /opt/sequtils/generate_sample_fasta_csv.py
+COPY blast_genotype.py /opt/sequtils/blast_genotype.py
+COPY blast_db /opt/sequtils/blast_db
 
 RUN cpan -T Mozilla::CA
+
+COPY combined.conf /opt/vadr/combined.conf
 
 ENV VADRINSTALLDIR=/opt/vadr
 ENV VADRSCRIPTSDIR=/opt/vadr/vadr

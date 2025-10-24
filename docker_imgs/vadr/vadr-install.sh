@@ -169,7 +169,7 @@ if [ "$DOWNLOADORBUILD" != "build" ]; then
     # ------------------------------------------------------------
     git clone https://github.com/ncbi/vadr.git vadr
     cd vadr
-    git checkout v-scan
+    git checkout develop
     rm -rf .git
     cd ..
     # ----------------------------------------------------------------------------
