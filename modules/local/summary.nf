@@ -10,7 +10,7 @@ process SUMMARY {
     output:
     path "batch_error_alert.tsv", emit: error_alerts
     path "batch_classify_pass_fail.tsv", emit: classify
-    path "batch_blast_classification_summary.tsv", optional: true, emit: blast_summary
+    //path "batch_blast_classification_summary.tsv", optional: true, emit: blast_summary
 
 
     script:
