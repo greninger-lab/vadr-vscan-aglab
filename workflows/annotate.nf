@@ -45,9 +45,14 @@ workflow ANNOTATE {
         ch_src       
     )
 
-    SUMMARY {
+    //VADR.out.vadr_out.view()
+
+    //def blast_gt_safe = VADR.out.blast_gt ?: Channel.empty()
+
+    SUMMARY (
         VADR.out.vadr_out.map{ it[1] }.collect()
-    }
+        //blast_gt_safe.map{ it[1] }.collect()
+    )
 }
 
 /*

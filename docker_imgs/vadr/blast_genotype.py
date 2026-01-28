@@ -18,6 +18,9 @@ def main():
     parser.add_argument("query", help="Query FASTA file")
     parser.add_argument("db", help="Local BLAST database")
     parser.add_argument("-o", "--output", required=True, help="Output TSV file for BLAST results")
+    parser.add_argument("--perc_identity", dest="perc_identity", required=True, help="Percent identity")
+    parser.add_argument("--evalue", dest="evalue", required=True, help="evalue")
+    parser.add_argument("--word_size", dest="word_size", required=True, help="word size")
     args = parser.parse_args()
 
     # Determine blastn path
@@ -31,8 +34,10 @@ def main():
                 "-query", args.query,
                 "-db", args.db,
                 "-outfmt", "6 qacc sacc pident length qstart qend sstart send evalue bitscore",
-                "-max_target_seqs", "20",
-                "-evalue", "1e-10"
+                "-max_target_seqs", "10",
+                "-perc_identity", args.perc_identity,
+                "-evalue", args.evalue,
+                "-word_size", args.word_size
             ],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -55,7 +60,7 @@ def main():
         if len(cols) > 1:
             sacc = cols[1]
             # Extract substring after last underscore
-            genotype = sacc.split("_")[-1]
+            genotype = " ".join(sacc.split("_")[1:])
             print(genotype)
         else:
             print("No sacc found in BLAST output", file=sys.stderr)
