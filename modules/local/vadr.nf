@@ -111,8 +111,8 @@ process VADR {
     model=\$(find -L . -type f -name "*.mdl" | xargs -I {} awk 'NR==4 {print \$3}' {})
 
     # Set appropriate moltype, create \$note entry for genotype/sub lineage
-    if [[ "\$model" == "HRV" ]]; then
-        gt=\$(/opt/sequtils/blast_genotype.py ${meta.id}_temp.fasta /opt/sequtils/blast_db/\${model} --evalue 1e-50 --perc_identity 75 --word_size 9 -o ${meta.id}_blast_genotype.tsv)
+    if [[ "\$model" == "hrvA" || "\$model" == "hrvB" || "\$model" == "hrvC"]]; then
+        gt=\$(/opt/sequtils/blast_genotype.py ${meta.id}_temp.fasta /opt/sequtils/blast_db/\${model} --evalue 1e-50 --perc_identity 75 --word_size 9 -o ${meta.id}_blast_classification.tsv)
 
         # Check if gt is non-empty and prepare sequence source modifiers for description
         if [[ -n "\$gt" ]]; then
