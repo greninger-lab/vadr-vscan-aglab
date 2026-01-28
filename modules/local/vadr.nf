@@ -34,7 +34,7 @@ process VADR {
         tuple val(meta), path("${meta.id}.gbf"),           emit: gbf
         tuple val(meta), path("${meta.id}.sqn"),           optional: true, emit: sqn
         tuple val(meta), path("${meta.id}.fsa"),           emit: fsa
-        tuple val(meta), path("${meta.id}*_blast_genotype.tsv"), optional: true, emit: blast_gt
+        tuple val(meta), path("${meta.id}*_blast_classification.tsv"), optional: true, emit: blast_gt
     
 
     shell:
